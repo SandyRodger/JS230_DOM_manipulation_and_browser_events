@@ -1,23 +1,133 @@
 # JS230_DOM_manipulation_and_browser_events
 
-## 1	[The DOM	](https://launchschool.com/lessons/f0659709)
+## 1	[The DOM](https://launchschool.com/lessons/f0659709)
 
 ### [1	Introduction](https://launchschool.com/lessons/f0659709/assignments/86724a17)
 
+- You need a "solid" understanding of html/css for this course.
+- We're looking at:
+  -  user behaviour interfacing with out javascript
+  -  the DOM:
+    -  how devs use it to change a web-page
+  -  how to update the interface as a response to actions triggered by the user or the browser.
+-  the goal is to create dynamic/responsive web-pages
+
 #### [LS202 (lessons 1 - 5)](https://github.com/SandyRodger/LS202_html_and_css/edit/main/README.md)
 
-### 2	The Document Object Model (DOM)
-### 3	A Hierarchy of Nodes
+### [2	The Document Object Model (DOM)](https://launchschool.com/lessons/f0659709/assignments/019f725c)
+
+- an in-memory object representation of an HTML document.
+- [What the DOM is and isn't article](https://css-tricks.com/dom/)
+  
+### [3 A Hierarchy of Nodes](https://launchschool.com/lessons/f0659709/assignments/f7a161b7)
+
+- Browsers insert missing elements because a fundamental tenet of the web is permisiveness, ie the browser will do its best to display what you provide even if it means adding bits.
+- and in fact the DOM includes more nodes than the html tags. like for #text inside the tags and tags containing only white-space AKA empty nodes.
+- Devs often forget about these empty nodes, like those between lines, and it can cause bugs.
+- Jut remember they aren't visible in the web-browser, but they are there.
+##### DOM levels
+
+- referes to which features are available where. You don't need to know this.
+
+### Problems:
+
+- fine (I didn't do the drawing, but I think I would have gotten the same answer)
+
 ### [4	Node Properties](https://launchschool.com/lessons/f0659709/assignments/b40afb49)
+
+`let p = document.querySelector("p");`
+
 #### Node properties
 ##### Node Name
+
+- this property contains a string representation of the node-type in upper-case.
+- for text nodes it's always `#text`, for comments -> `#comment`.
+
 ##### Node Type
+
+- is a number coresponding to a type.
+- These are the most common:
+
+|Constant|	Value|	Description|
+| :--: | :--: | :--: | 
+|Node.ELEMENT_NODE|	1|	An Element representing an HTML tag
+|Node.TEXT_NODE|	3|	A Text node|
+|Node.COMMENT_NODE|	8|	A Comment node|
+|Node.DOCUMENT_NODE|	9|	A Document node|
+
+- but try and refer to them by constant names instead so that the code is readable. ike this:
+  - `p.nodeType === Node.ELEMENT_NODE`
+  - `document.nodeType === Node.DOCUMENT_NODE`
 ##### Node value
-##### 
+
+- element nodes don't have values. `p.nodeValue` === null.
+- text nodes do:
+  - `let t = p.childNodes[0]`
+  - `t.nodename;` => #text
+  - `t.toString();` => "[object Text]"
+
+##### text content
+
+- when we need the text within an element we use `textContent`
+- `textContent` represents the text of all nodes inside the Element.
+- the result has too much white-space because of all the empty tags
+
+example -> ... but I know why this happens. It's obvious ?
+
 ### [5	Determining the Type of a Node](https://launchschool.com/lessons/f0659709/assignments/5436a8bd)
+
 #### Nodes and elements
+
+- DOM objects come in different types: nodes, elements, text etc. Elements have lots of sub-types. Figuring out what the object type is can be tricky. But you can always say the following:
+  - ALL DOM objects are nodes
+  - ALL DOM objects have a type (and properties and methods) that inherits from Node
+  - The most common DOM object types are:
+    - element
+    - text
+
+Why do I need to give a shit about Node type?
+  - because if you know what it is then you know what properties and methods are available to you. Knowing its name gives you power over it.
+
 #### Inheritance in the DOM
+
+- The types of node exist in a heirarchy. They inherit from their superiors.
+- Here's a partial list:
+
+- EventTarget
+  - Node
+    - Text
+    - Comment
+    - Document
+    - Element
+      - HTMLElement
+        - HTMLAnchorElement
+        - HTMLBodyElement
+        - HTMLButtonElement
+        - HTMLCanvasElement
+        - HTMLDivElement
+        - HTMLFormElement
+        - HTMLHeadingElement
+        - HTMLHtmlElement
+        - HTMLInputElement
+        - HTMLLIElement
+        - HTMLLabelElement
+        - and on and on and on  
+      - SVGColorElement
+      - SVGRectElement
+      - and on and on.
+
+- Almost all HTML tags have their own Element subtype.
 #### Determining the Node Type
+
+- `Object.getPrototypeOf()` is the easiest.
+  - `Object.getPrototypeOf(p)`
+- on a console it's better to use `toString` or String constructor on the node, which usually returns the node's type's name.
+
+```javascript
+let a = document.querySelector('a');
+a.toString() // "http://domain.com/page"
+```
+
 ### [6	Inheritance and Finding Documentation](https://launchschool.com/lessons/f0659709/assignments/ddf624ee)
 
 - video
