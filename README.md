@@ -121,20 +121,42 @@ Why do I need to give a shit about Node type?
 
 - `Object.getPrototypeOf()` is the easiest.
   - `Object.getPrototypeOf(p)`
+##### ... on a console
+
 - on a console it's better to use `toString` or String constructor on the node, which usually returns the node's type's name.
+
+```javascript
+p.toString();
+"[object HTMLParagraphElement]"
+```
+
+- some elements don't return the node's type name when you use `toString()`. This can be confusing. An example is here given with the `<a>` tag which returns "http://domain.com/page"
 
 ```javascript
 let a = document.querySelector('a');
 a.toString() // "http://domain.com/page"
 ```
+- if you need to work-around this inconsistency you can look at the constructor property of the node, which will reference a function that creates the type of object you're looking for. So:
+
+`document.querySelector('a').constructor.name; === "HTMLAnchorElement"`
+
+- although it might look different in different browsers.
+
+##### ... from code
+
+- `instanceof` or `tagName` property.
 
 ### [6	Inheritance and Finding Documentation](https://launchschool.com/lessons/f0659709/assignments/ddf624ee)
 
-- video
+- video - 4 mins
 
-### [7	Traversing Nodes](https://launchschool.com/lessons/f0659709/assignments/4e29e7ea)
+### [7	Traversing Nodes](https://launchschool.com/lessons/f0659709/assignments/4e29e7ea
+
+- DOM nodes connect with other DOM nodes via a set of properties that point from one noe to another.
+- A list of common node proeprties that I saved as ANKI cards.
+
 #### Walking the Tree
-- recursion
+- recursion (this looks a lot like the DSA course)
 ### [8	Element Attributes](https://launchschool.com/lessons/f0659709/assignments/38681590)
 #### Attribute Properties
 #### classList
