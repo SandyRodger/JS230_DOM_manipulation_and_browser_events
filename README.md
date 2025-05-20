@@ -293,6 +293,41 @@ p; => <p class="intro" id="complex">...</p>
   - inspect local variables
   - etc...
 
+YOUTUBE VIDEO: https://www.youtube.com/watch?v=VYyQv0CSZOE
+
+- this is boring As Fuuuuuuuuuuuuck (cool beard though)
+- 2019
+- Kayce Basques
+- Core Work flows
+- Dev tools: is it doing good?
+- Debugging CSS: it's usually faster to debug than staring at your code
+- "command menu" a useful way to speed up routine tasks
+- basic debugging:
+- right click, inspect 
+- inspect-mode
+- The DOM tree has a 'search UI" (control f)
+- animations tab: change speed, timing, 
+- rendering tab (enable paint flashing)
+- 'high performance animations' doc
+- prototyping CSS
+- Pseudo-classes.
+- Automatic syncing
+- contrast ratio
+- KBD elements?
+- screen shots
+- debugging: either programs not executing in the right order or the the values aren't set as you meant them to
+- condo option J -> straight to console
+- open the draw with escape
+- if you wrap an object in curly braces it prints the name of the variable followed by the value.
+- console.trace to get a call Stack trace to find out where something came from.
+- scope -> tells you the scope, like closure scope
+- 'live expressions'
+- just write 'debugger' in your code (it's a breakpoint)
+- another breakpoint is to just click a line of code and then the code pauses there. Others are DOM mutation break-point and Event listener breakpoints
+
+_ this video would be more helpful if I was familiar with dev tools. If I used it a lot and had a bunch of preferred practices
+
+
 ### [10Practice Problems: Traversing and Accessing Attributes](https://launchschool.com/lessons/f0659709/assignments/d01702c5)
 ### [11Finding DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/bec976e6)
 #### Finding An Element By Id
