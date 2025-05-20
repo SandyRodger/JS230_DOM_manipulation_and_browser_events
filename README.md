@@ -149,10 +149,23 @@ a.toString() // "http://domain.com/page"
 ### [6	Inheritance and Finding Documentation](https://launchschool.com/lessons/f0659709/assignments/ddf624ee)
 
 - video - 4 mins
+  - "it's important to know what methods you can call on a DOM object:
+    - find the obejct
+    - get it's type name
+    - put that in google with "MDN"
+- The MDN page will show you what the object inherits from, and it will obviously have access to all those methods/properties too.
+- Make sure to check the compatibility tables so you know that the method/property you're using is available in your browser.
 
-### [7	Traversing Nodes](https://launchschool.com/lessons/f0659709/assignments/4e29e7ea
+### [7 Traversing Nodes](https://launchschool.com/lessons/f0659709/assignments/4e29e7ea)
 
-- DOM nodes connect with other DOM nodes via a set of properties that point from one noe to another.
+- DOM nodes have properties that point to their related nodes. Properties like:
+  - `childNodes`
+  - `firstChild`
+  - `lastChild`
+  - ParentNode
+  - nextSibling
+  - previousSibling
+- **live collection** is one that automatically updates to reflect changes in the DOM.
 - A list of common node proeprties that I saved as ANKI cards.
 
 #### Walking the Tree
