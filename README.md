@@ -329,8 +329,15 @@ _ this video would be more helpful if I was familiar with dev tools. If I used i
 
 
 ### [10Practice Problems: Traversing and Accessing Attributes](https://launchschool.com/lessons/f0659709/assignments/d01702c5)
+
+_ I am not able to solve these problems. Where was the information that I missed which would enable me to solve these? (was it LS2020...)
+
 ### [11Finding DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/bec976e6)
+
 #### Finding An Element By Id
+
+- We often need to do this. We use `getElementByID` on `document` 
+
 #### Finding More Than One Element
 #### Built-In Functions
 #### Using CSS Selectors
