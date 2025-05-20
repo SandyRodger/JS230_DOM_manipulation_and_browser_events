@@ -169,13 +169,130 @@ a.toString() // "http://domain.com/page"
 - A list of common node proeprties that I saved as ANKI cards.
 
 #### Walking the Tree
-- recursion (this looks a lot like the DSA course)
+- recursion (this looks a lot like the DSA course) This section of the course appears to assume one has nto completed JS220 (DSA). I have, and therefore I can skim this.
+
+- non recursive:
+
+```javascript
+function iterateAndLog(array) {
+  for (let index = 0; index < array.length; index += 1) {
+    console.log(array[index]);
+  }
+}
+```
+
+-recursive
+
+```javascript
+function recurseAndLog(array) {
+  if (array.length > 0) {
+    console.log(array[0]);
+    recurseAndLog(array.slice(1));
+  }
+}
+```
+
+- When walking the tree in the DOM the collection we recursively traverse is not an array, but is DOM nodes where the smaller argument is one of its children:
+
+```javascript
+function walk(node) {
+  console.log(node.nodeName);
+  for (let index = 0; index < node.childNodes.length; index += 1) {
+    walk(node.childNodes[index]);
+  }
+}
+
+walk(document.body)
+```
+
+- It's better practice to separate the walking and the action performed on each value into 2 different methods. Like the following:
+
+```javascript
+function walk(node, callback) {
+  callback(node);
+  for (let index = 0; index < node.childNodes.length; index += 1) {
+    walk(node.childNodes[index], callback);
+  }
+}
+
+walk(document.body, node => {
+  console.log(node.nodeName);
+})
+```
+
 ### [8	Element Attributes](https://launchschool.com/lessons/f0659709/assignments/38681590)
+#### Getting and Setting Attributes
+
+```javascript
+> p.hasAttribute('class');
+= true
+> p.getAttribute('class');
+= "intro"
+> p.getAttribute('id');
+= "simple"
+> p.setAttribute('id', 'complex');
+> p
+= <p class="intro" id="complex">...</p>
+```
+
 #### Attribute Properties
+
+- So, yes, you can use get and set Attribute for all attributes, but there is a second way:
+  - As properties of the element: `id`, `name`, `title`, `value` and you can get and set these as you would normally. ie:
+
+```javascript
+p; => <p class="intro" id="simple">...</p>
+p.id => "simple"
+p.id = 'complex
+p; => <p class="intro" id="complex">...</p>
+```
+
+- Beware that not every element type has these properties. `name` and `value` are especially uncommon.
+- You can also play with `className`.
+
 #### classList
+
+- Sometimes elements have more than one class which means using `className` to access the class of an element is a bit jimmy-jammy. I mean look at this bullshit:
+
+`<button class="btn btn-lg btn-primary">Proceed</button>`
+
+- you see that the class name is a space-delineated set of names interacting with `className` can be freaky. Imagine replacing one part! You have to get the string from `className`, use replace to change it, use the result to set a new value for `button.className`:
+
+```javascript
+> let newClass = button.className.replace('btn-primary', 'btn-disabled');
+> button.className = newClass;
+= "btn btn-lg btn-disabled"
+> button;
+= <button class="btn btn-lg btn-disabled">...</button>
+```
+
+- ANd another thing! -> how do are we meant to determine that `button` belongs to the `btn` class? (I mean `class` may contain class names in any order. SOn you have to split it then search it. And if you're doing it often this is absolute bullshit.
+- This is why modern browsers have `classList`: a property that references a special array-like `DOMTokenList` object with the following properties and methods:
+  - `add(name)`
+  - `remove(name)`
+  - `toggle(name)`
+  - `contains(name)`
+  - `length`
+
 #### style
 
+- Here we're going to talk about the `style` attribute of element nodes. It's kinda funky.
+- It references a `CSSStyleDeclaration` object.
+- You can change a property with it like this:
+  - `h1.style.color = 'red';
+- And remove a CSS property like this:
+  - `h1.style.color = null;
+- If a CSS property contains dashes then you have to access it with a camelCased version of that. SO for `line-height` it's `h1.style.lineHeight = '3em';
+
 ### [9	Chrome Debugging Tools for Front End Development](https://launchschool.com/lessons/f0659709/assignments/8d41d105)
+
+- THe dev tools are an important part of your kit. With it you can:
+  - inspect HTML
+  - edit CSS
+  - Stop Javascript execution within a private function
+  - inspect local variables
+  - etc...
+
 ### [10Practice Problems: Traversing and Accessing Attributes](https://launchschool.com/lessons/f0659709/assignments/d01702c5)
 ### [11Finding DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/bec976e6)
 #### Finding An Element By Id
