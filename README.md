@@ -332,18 +332,230 @@ _ this video would be more helpful if I was familiar with dev tools. If I used i
 
 _ I am not able to solve these problems. Where was the information that I missed which would enable me to solve these? (was it LS2020...)
 
+- 2nd go, I can solve them now.
+
+5. my solution is different:
+
+```javascript
+let pngCount = 0;
+walk(document, node => {
+    if (node.nodeName === 'IMG' && node.src.slice(-4) === '.png') {
+        pngCount += 1;
+    }
+})
+undefined
+pngCount;
+23
+```
+
+Fuck yes boiiiii, I am smashing this:
+
+6.
+```javascript
+walk(document, node => {
+    if (node.nodeName === 'A') {
+        node.style.color = 'red';
+    }
+})
+```
+
 ### [11Finding DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/bec976e6)
 
 #### Finding An Element By Id
 
 - We often need to do this. We use `getElementByID` on `document` 
 
+#### problems group 1
+
+1. My solution:
+
+```javascript
+function findParas(document) {
+    let output = [];
+    walk(document, node => {
+        if (node.nodeName === 'P') {
+            output.push(node);
+        }
+    })
+    return output;
+}
+undefined
+function(document);
+VM477:1 Uncaught SyntaxError: Function statements require a function nameUnderstand this error
+findParas(document);
+(2) [p, p]
+```
+
+LS solution (same result):
+
+```javascript
+function findAllParagraphs() {
+  let matches = [];
+  let nodes = document.body.childNodes;
+
+  for (let index = 0; index < nodes.length; index += 1) {
+    if (nodes[index] instanceof HTMLParagraphElement) {
+      matches.push(nodes[index]);
+    }
+  }
+
+  return matches;
+}
+
+console.log(findAllParagraphs());
+```
+
+2.  (am I not meant to be using the walk method? - seems too easy)
+
+```javascript
+function walk(node, callback) {
+  callback(node);
+
+  for (let index = 0; index < node.childNodes.length; index += 1) {
+    walk(node.childNodes[index], callback);
+  }
+}
+function addingPTags(document) {
+    walk(document, node => {
+        if (node.nodeName === 'P') {
+            node.classList.add('article-text')
+        }
+    })
+}
+```
+
+LS solutiom:
+
+```javascript
+function addClassToParagraphs(node) {
+  if (node instanceof HTMLParagraphElement) {
+    node.classList.add("article-text");
+  }
+
+  let nodes = node.childNodes;
+  for (let index = 0; index < nodes.length; index += 1) {
+    addClassToParagraphs(nodes[index]);
+  }
+}
+
+addClassToParagraphs(document.body);
+```
+
+##### Incredibly useful getElementsbyTagName function
+
+```javascript
+function getElementsByTagName(tagName) {
+  let matches = [];
+
+  walk(document.body, (node) => {
+    if (node.nodeName.toLowerCase() === tagName) {
+      matches.push(node);
+    }
+  });
+
+  return matches;
+}
+
+getElementsByTagName("p").forEach((paragraph) =>
+  paragraph.classList.add("article-text")
+);
+```
+
+- the DOM provides similar built in mthods like:
+  - `document.getElementsByTagName(tagName)`
+  - `document.getElementsByClassName(className)`
+
+#### Problems group 2
+
+1. My solution:
+
+```javascript
+function myGetElementsByTagName(tagName) {
+  return document.getElementsByTagName(tagName);
+}
+
+myGetElementsByTagName("p").forEach((paragraph) =>
+  paragraph.classList.add("article-text")
+);
+```
+
+LS solution:
+
+```javascript
+let paragraphs = document.getElementsByTagName("p");
+for (let index = 0; index < paragraphs.length; index += 1) {
+  paragraphs[index].classList.add("article-text");
+}
+```
+
+
+2.
+
+I'm a little too tired for this and should return to it tomorrow.
+1
+```javascript
+let paragraphs = document.getElementsByTagName("p");
+for (let index = 0; index < paragraphs.length; index += 1) {
+  // if (paragrpah[index].toString() === 'Div')
+  if (paragraphs[index].parentNode.classList.value === 'intro') { paragraphs[index].classList.add("article-text");
+  }
+  
+}
+```
 #### Finding More Than One Element
 #### Built-In Functions
 #### Using CSS Selectors
 
+- it's often easier to seek by css selector.
+
+`document.querySelector(selectors)`
+`document.querySelectorAll(selectors)`
+
+
+- like this:
+
+```html
+<div id="divOne"></div>
+<div id="divTwo"></div>
+```
+
+```javascript
+> document.querySelector('#divTwo, #divOne');
+= <div id="divOne"></div>    // returns the first matching element;
+                             // div with an id of `divOne` matched first
+> document.querySelectorAll('#divTwo, #divOne');
+= NodeList(2) [div#divOne, div#divTwo]
+```
+
 ### [12Traversing Elements](https://launchschool.com/lessons/f0659709/assignments/55319aee)
+
 #### textContent
+
+- This part is about how to access the text nodes, because it's different, because DOM properties don't include non-element nodes. Like this:
+  - - `document.querySelector('a').textContent;` => "go back"
+  - `document.querySelector('a').textContent = 'step backward;'
+  - but it replaces all childNodes in the element with the text node, so be careful.
+  - The way to do this operation safely is to place the text you need to update inside an element.
+
+```html
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>My Site</title>
+  </head>
+  <body>
+    <div>
+      Welcome to the site!<br>
+      The time is <span class="time">9:15 am</span>.<br>
+      You are logged in as <a href="/account">Kabu</a>.
+    </div>
+  </body>
+</html>
+```
+
+```javascript
+document.querySelector('.time').textContent = '9:16 am';
+```
 
 ### [13Practice Problems: Finding Nodes and Traversing Elements](https://launchschool.com/lessons/f0659709/assignments/982b7c72)
 ### [14Creating and Moving DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/05416748)
