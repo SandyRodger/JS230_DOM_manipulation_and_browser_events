@@ -532,7 +532,7 @@ for (let index = 0; index < paragraphs.length; index += 1) {
 #### textContent
 
 - This part is about how to access the text nodes, because it's different, because DOM properties don't include non-element nodes. Like this:
-  - - `document.querySelector('a').textContent;` => "go back"
+  - `document.querySelector('a').textContent;` => "go back"
   - `document.querySelector('a').textContent = 'step backward;'
   - but it replaces all childNodes in the element with the text node, so be careful.
   - The way to do this operation safely is to place the text you need to update inside an element.
