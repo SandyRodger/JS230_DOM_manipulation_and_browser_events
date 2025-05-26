@@ -882,17 +882,95 @@ elem1.addEventListener('click', callbackFunction, true);
 
 ### [12	Assignment: Guessing Game](https://launchschool.com/lessons/0e674886/assignments/55b5d527)
 
+- pretty straight-forward (once i'd had a night of rest)
+
 ### [13	Assignment: Build an Input Box](https://launchschool.com/lessons/0e674886/assignments/033bf169)
+
+3. My convoluted solution:
+
+```javascript
+    setInterval(() => {
+      if (!textField.classList.contains('cursor')) {
+        textField.classList.add('cursor');
+      } else {
+        textField.classList.remove('cursor');
+      }
+    }, 500);
+  });
+```
+
+LS solution:   `setInterval(() => textField.classList.toggle('cursor'), 500);`
+
+7. Why is my solution not better?
+  `clearInterval(cursorInterval);`
+LS solution:
+  line 10: `cursorInterval = cursorInterval || setInterval(() => textField.classList.toggle('cursor'), 500);` (when you click on the text box)
+  line 26: `cursorInterval = null;` (when you click elsewhere)
+
 ### 14	Summary
+
+4. Here says "Event listeners are callbacks that the browser will invoke when a matching event occurs.", but I'm fairly sure LS told me that that is event handlers, and the listener is the method that takes the handler as its 2nd argument... ?
+
 ### 15	Quiz
 
-## [3	Creating Responsive Webpages](https://launchschool.com/lessons/6169e7e7/assignments)
+- 1st go (0%)
+- 2nd go (26.5.25) -> 7/8 = 88%
+1. A Tick
+2. C Tick
+3. B Tick
+4. A, B, C Tick
+5. C; Tick
+6. A, C, D -> not D. ALmsot, but ew should be checking `event.target` not `event.currentTarget`.
+7. B Tick
+8. B Tick
 
-### 1	Introduction
+## [3	Creating Responsive Webpages](https://launchschool.com/lessons/6169e7e7/assignments)
+### [1	Introduction](https://launchschool.com/lessons/6169e7e7/assignments/7bd7d615)
+- breaking down problems
+- organizing code
+- handling user interactions effectively
+
 ### [2	HTML Data Attributes](https://launchschool.com/lessons/6169e7e7/assignments/4d45d956)
+
+
 ##### Data Attributes in HTML
+
+- sometimes ID attributes are used to achieve this, but that's not really their job.
+- With the introduction of HTML5 came the ability to create custom data attributes.
+- They must have 'data-' followed by at least 1 character.
+- There is no limit to the number of data attributes you can add to an element.
+
 ##### Reading and Writing Data Attributes in JavaScript
+
+- You can access data attributes using the `dataset` property on an element.
+- The following retrieves the `data-block` value from the selected `<a>` element
+
+```javascript
+const goldTab = document.querySelector('a[data-block="gold"]');
+
+console.log(goldTab.dataset.block); // "gold"
+```
+
+- You can also modify data attributes dynamically:
+  - `goldTab.dataset.block = "platinum"; // Updates the attribute value`
+- we can look at all of an element's data attributes with `console.table`:
+  - `console.table(godTab.dataset`
+- finally you can remove a data attribute using the `delete` operator;
+  - `delete goldTab.dataset.block;`
+
+
 ##### Naming Conventions for Data Attributes
+
+- (this is tedious)
+- when using `dataset` attribute names with hyphens are converted to camelCase, like below:
+
+`<div data-date-of-birth="1999-09-09"></div>`
+is accessed thusly:
+`document.querySelector('div').dataset.dateOfBirth;
+
+- (because hyphens are not allowed in Javascript property names)
+
+
 ### [3	Assignment: Arithmetic Calculator](https://launchschool.com/lessons/6169e7e7/assignments/37105b2e)
 ### [4	Assignment: Grocery List](https://launchschool.com/lessons/6169e7e7/assignments/9b6bffb7)
 
