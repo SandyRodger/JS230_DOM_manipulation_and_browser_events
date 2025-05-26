@@ -571,32 +571,315 @@ node.cloneNode(deepClone)
 ### [16Practice Problems: the DOM](https://launchschool.com/lessons/f0659709/assignments/3ef4cf4e)
 ### [17Assignment: DOM Shuffling](https://launchschool.com/lessons/f0659709/assignments/2c9d1e4f)
 ### [18Summary](https://launchschool.com/lessons/f0659709/assignments/d863bc06)
-### 19 Quiz
+### [19 Quiz](https://launchschool.com/quizzes/50a33f83)
+
+- 1st go (super rushed -> 50%)
+- 2nd go (24.5.25) -> 50%, but less guessing, so better?
+
+1. C Tcik
+2. C no, D. so "\n" is indeed a valid DOM type.
+3. D, no A. Element nodes don't have values, ya dingus.
+4. B Tick.
+5. B Tick
+6. A Tick
+7. B, C -> and D, so `Element.classList.add` is a valid way of adding a class to an element:
+`Element.className = Element.className + ' someClass';`
+8. failed to even try. In the end the way to find the answer was by writing code rather than counting manually. Correct, but no tick
+9. A, B, C, D - Tick
+10. D, but just because I ran the code. -> actually B. BEcause when we clone the `.intro` it makes an element with the same `id` tag, which is not allowed.
 
 ## [2	Event-Driven Programming](https://launchschool.com/lessons/0e674886/assignments)
 
 ### [1	Introduction](https://launchschool.com/lessons/0e674886/assignments/f9875c44)
 
-### [2	User Interfaces and Events](https://launchschool.com/lessons/0e674886/assignments/bc1afaa4)
-##### User Interfaces Do a Lot of Waiting
-### [3	A Simple Example](https://launchschool.com/lessons/0e674886/assignments/cee99839)
-### [4	Page Lifecycle Events](https://launchschool.com/lessons/0e674886/assignments/99544445)
-### [5	User Events](https://launchschool.com/lessons/0e674886/assignments/99544445)
-### [6	Adding Event Listeners](https://launchschool.com/lessons/0e674886/assignments/1feb3d1e)
-#### Event Listeners and Handlers
-### [7	The Event Object](https://launchschool.com/lessons/0e674886/assignments/ecdb4ea9)
-#### Mouse Events
-#### Keyboard Events
-#### Problems
-### [8	Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/4b0e007c)
-##### When is the Event Handler Invoked?
+- Instead of controlling the flow of the program, we set up **event listeners** that respond to actions or system events.
 
+### [2	User Interfaces and Events](https://launchschool.com/lessons/0e674886/assignments/bc1afaa4)
+
+- An event is an object that represents some occurence. It contains information about what happened and where.
+
+##### User Interfaces Do a Lot of Waiting
+
+-example with an inpur field that takes a number and returns the nth number in a fibonacci sequence.
+
+### [3	A Simple Example](https://launchschool.com/lessons/0e674886/assignments/cee99839)
+
+```javascript
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title>title</title>
+    <meta charset="UTF-8">
+    <script>
+      document.addEventListener('DOMContentLoaded', event => {
+        let addButton = document.getElementById('add');
+        let output = document.getElementById('output');
+        let count = 0;
+
+        addButton.addEventListener('click', event => {
+          count += 1;
+          output.textContent = String(count);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <p>
+      <span id="output">0</span>
+      <button id="add">Add One</button>
+    </p>
+  </body>
+</html>
+```
+
+1. Browser loads page, evaluates Javascript within `script` tag. 
+- this registers a callback to handle the `DOMContentLoaded` event when it **fires** on document.
+2. The browser waits for an event to fire.
+3. The browser fully loads the HTML, builds the DOM and then fires the `DOMContentLoaded` event
+4. The browser invokes the event handler for `DOMContentLoaded`. This uses `document.getElementById` to get references to two DOM elements and initializes the variable `count`.
+- Plus it registers an event listener for `click` events on `addButton`
+5. The browser waits for an event to fire.
+6. WHen the user clocks the button the `click` event fires and the browser runs the handler. The callback increments the value of `count` and updates the `textContent` of the `#output` `pan`
+7. Again the browser waits for an event to fire.
+
+### [4	Page Lifecycle Events](https://launchschool.com/lessons/0e674886/assignments/99544445)
+
+<img width="598" alt="Screenshot 2025-05-24 at 12 11 56" src="https://github.com/user-attachments/assets/d26c77c2-3244-491a-baff-80e2e86122e4" />
+
+### [5	User Events](https://launchschool.com/lessons/0e674886/assignments/99544445)
+
+- some different event examples:
+  - Keyboard
+    - keydown
+    - keyup
+  - Mouse
+    - mouseenter, mouseleave, mousedown, mouseup, click
+  - Touch
+    - touchstart, touched, touchmove
+  - Window
+    - scroll, resize
+  - Form
+    - submit
+
+### [6	Adding Event Listeners](https://launchschool.com/lessons/0e674886/assignments/1feb3d1e)
+
+- AKA event handlers
+- 4 stes to set up an event handler:
+  -  identify the event you need to handle. (user actions, the page lifecycle, ...)
+    -  "We want something to happen when the user clicks the 'alert' button, so we need to handle teh 'click' event."
+  -  Identify the element that will receive the event (button? input field? other element?)
+    -  "We'll use the `button` as that's where the interaction occurs"
+  -  Define a function to call when this event occurs (the function is passed 1 arg, an `Event` object.
+    -  "This function will display an alert using the contents of the `textArea`:
+
+```javascript
+function displayAlert(event) {
+  let message = document.getElementById("message").value;
+  alert(message);
+}
+```
+
+  -  Register the function as an event listener. This step ties steps 1 - 3 together:
+    -  "We can call `addEventListener` on a reference to the button":
+
+```javascript
+document.addEventListener("DOMContentLoaded", () => {
+  let button = document.getElementById("alert");
+  button.addEventListener("click", displayAlert);
+});
+```
+
+- OK here is something I don't quite get, but must grok at some point:
+  - "notice that we register `displayAlert` as the `click` listener within the `DOMContentLoaded` event handler. As we saw [earlier] we can't access the `button` element until _after_ the DOM is ready, so we mmust postpone the step until then."
+- and if you're working from dev tools then you dont need to wait because the page is already loaded... duh.
+
+#### Event Listeners and Handlers
+
+- the terms _event listener_ and _event handler_ are treated interchangeably even though there's a difference:
+  - the `addEventListener` method sets up an event listener for a specific type on an element. This is the overall system that listens for events.
+  - The 2nd argument to the method above is the event handler.
+
+### [7	The Event Object](https://launchschool.com/lessons/0e674886/assignments/ecdb4ea9)
+
+- `event.type` -> the name of the event (ie. 'click')
+- `event.currentTarget` -> the current object that the event object is on
+- `event.target` -> the object on which the event occured (ie. the element you clicked)
+
+- in this example the `target` changes every time you click, but the `currentTarget` stays the same because it's always defined in the same place (on `body`). (I would say that these two names should be swapped, but what do I know)
+- Also bear in mind they can be the same object.
+
+#### Mouse Events
+
+- `button` -> which button was pressed
+- `clientX` -> the horizontal position of the mouse when the event occured.
+- `clientY` -> vertical (relative to the visible area of the page)
+
+#### Keyboard Events
+
+- `key` -> string of the pressed key (not on older browsers)
+- `shiftKey` -> Boolean value , did you press Shift
+- `altKey` -> as above
+- `ctrlKey` -> as above
+- `metaKey` -> aka command
+
+#### Problems
+
+1. OK, I peeked after a good attempt. The bit that was stumping me was how to adapt the cs styles. Turns out `querySelector` searches the css too!
+2. 'mousemove' - fucking hell
+3. OK, I'm glad I peeked, this one had some rough turns:
+
+```javascript
+document.addEventListener('mousemove', event => {
+  let x = document.querySelector('.x');
+  x.style.left = event.clientX.toString() + 'px';
+  x.style.top = event.clientY.toString() + 'px';
+});
+
+document.addEventListener('keyup', event => {
+  let key = event.key;
+  let color;
+
+  if (key === 'r') {
+    color = 'red';
+  } else if (key === 'g') {
+    color = 'green';
+  } else if (key === 'b') {
+    color = 'blue';
+  }
+
+  if (color) {
+    let x = document.querySelector('.x');
+    for (let index = 0; index < x.children.length; index += 1) {
+      var child = x.children[index];
+      child.style.background = color;
+    }
+  }
+});
+```
+
+4. Yeesh, this one was a lot:
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+  let composer = document.querySelector('.composer');
+  let textarea = composer.querySelector('textarea');
+  let counter = composer.querySelector('.counter');
+  let button = composer.querySelector('button');
+  
+  function updateCounter() {
+    let length = textarea.value.length;
+    let remaining = 140 - length;
+    let message = `${remaining.toString()} characters remaining`;
+    let invalid = remaining < 0;
+    
+    textarea.classList.toggle('invalid', invalid);
+    button.disabled = invalid;
+
+    counter.textContent = message;    
+  }
+  
+  textarea.addEventListener('keyup', updateCounter);
+  
+  updateCounter();
+});
+```
+
+### [8	Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/4b0e007c)
+
+- Downsides to event handling:
+  - you have to wait until the DOM is ready (ie until the `DOMContentLoaded` event fires).
+  - after that you have to add event handlers manually when you add new elements to the page.
+  - adding handlers to a lot of elements can be slow and complicated.
+
+#### Capturing & bubbling
+
+- There are 4 distinct nested elements.
+
+- Scenario 1: Adding the Event Listener to the Innermost Element
+  - basic: the innermost element has an event listenter that alerts when it is clicked.  
+- Scenario 2: Adding the Event Listener to an Outer Element:
+  - When we add the same event listener to elem2, it works for both of the elems nested inside it. So even though it is only defined on elem2, it can be invoked for elem 3 and elem 4.
+- Scenario 3: Adding the Event Listener to the Innermost and Outermost Element
+  - There is one event, but two alert boxes, because there are two event handlers.
+
+- Capturing and bubbling are phases that an event goes through after it initially fires:
+**capturing**
+1. The event gets dispatched to global `window` object
+2. then to the `document object
+3. Then to the target element (the element on which the event was originally fired)
+  - outer elements to inner elements
+----------process reverses-------------(target phase, between capturing and bubbling)
+**bubbling**
+4. inner elements to outer elements
+5. document
+6. window
+##### When is the Event Handler Invoked?
+- By default the listener is set to fire during bubbling. To toggle this to capturing add `true` as a 3rd argument. 
+
+```javascript
+elem1.addEventListener('click', callbackFunction, true);
+// Notice the third argument. It's set to `true`. When it's set to true, the event listener will listen during the capturing phase. If not specified, `useCapture` defaults to `false`, and the event listener listens during the bubbling phase.
+```
+
+##### target v currentTarget
+
+- seems straightforward. currentTarget is what the handler is defined on and target is the last click or whatnot.
+
+##### value of `this` within the handler when using a function expression
+
+- it's currentTarget. which is what i would have guessed.
+
+- Capturing and bubbling are phases that an event goes through after it initially fires
+- So is it like a variable lookup path?
+- Each variable is visited twice, once going down (capturing) and once coming up (bubbling)
+- To set the handler to listen on the capturing phase, (rather than the bubbling phase), you provide a 3rd argument:
+
+
+
+#### Problems
+
+1. add `true` as the third argument to the first event capture.
+2. OK I get this.
+3. Seemed straightforward, but they tricked you, because elem 0 was not part of the nest, it was closed, therefore not part of the bubble.
 ### [9	Practice Problems: Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/110f9c82)
+
+1. 4, 1 - because we are following normal bubbling capturing and the 2 events are defined on elem1, the difference being that one fires on `target` (elem4`) and the other on `currentTarget` (elem1, where the even listener is defined). So we capture down to the inner-most nested element: 4, then bubble back up and trigger on the bubbling phase, therefore 4, 1
+  - You got the order and logic correct, but missed that what is printed is the tag name, rather than the id or text content, so the outcome is 'MAIN', 'DIV'
+
+2. "capturing", "bubbling". Again the two listener events are both defined on elem1, but the 2nd method has `true` provided as a 3rd argument, meaning it will fire during the capturing phase, ie the first phase.This is why "capturing" will be printed first.
+  - correct
+
+3. "Elem1 Listener triggered!" will print, the other will not, regardlesss of whether `on capture` is set to true or not.
+  - correct.
+
 ### [10	Preventing Propagation and Default Behaviors](https://launchschool.com/lessons/0e674886/assignments/b22cabb4)
+
+- `event.stopPropagation`
+- `event.preventDefault`
+
 #### Stopping Propagation
+
+- `event.stopPropagation` halts bubbling/capturing.
+
 #### Preventing Default Behaviors
+
+- `event.preventDefault`
+
 ### [11	Event Delegation](https://launchschool.com/lessons/0e674886/assignments/5bd2ade1)
+
+- Drawbacks of adding listeners everywhere they're needed
+  - You must wait for the DOM to finish loading before adding event handlers. (do you? Or is it just this particular way. In which case why ?)
+  - Modern web pages often add elements after the page finishes loading, but any elements added later wont have those event handlers, so the dev must explicitly add listeners to new elements as the application adds them.
+  - Attaching many listeners to a document costs performance and memory
+
+- **event delegation**: defining your event listener on an ancestor object so that, so it doesn't have to be defined on a million buttons.
+
+- It doesn't have to be the defined on teh `document`, although often that's useful.
 ##### When To Use Event Delegation
+
+- At the beginning of a project bind the event handlers directly to elements. Then as the code grows in size/complexity reduce the number of event handlers required.
+
 ### [12	Assignment: Guessing Game](https://launchschool.com/lessons/0e674886/assignments/55b5d527)
 
 ### [13	Assignment: Build an Input Box](https://launchschool.com/lessons/0e674886/assignments/033bf169)
