@@ -1,0 +1,31 @@
+<!-- 
+ Now, let's write JavaScript to implement the tabbed navigation we discussed earlier. Start with the HTML at the beginning of this assignment. Create CSS to hide all articles except the "Gold Sponsors" for our initial state. Add an event listener to the anchors that will locate the appropriate article, hide all others, and make the located one visible. Do this using data attributes to make sure proper functionality is maintained if the elements are shuffled.
+
+Remember to prevent the default behavior of the click events on the anchor tags.
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" link="02.css">
+    <script src="01.js"></script>
+    <title>html attributes exercise</title>
+  </head>
+  <ul>
+    <li><a href="#" data-block="gold">Gold Sponsors</a></li>
+    <li><a href="#" data-block="silver">Silver Sponsors</a></li>
+    <li><a href="#" data-block="bronze">Bronze Sponsors</a></li>
+  </ul>
+
+  <article data-block="gold">
+    <h1>Gold Sponsors</h1>
+  </article>
+
+  <article data-block="silver">
+    <h1>Silver Sponsors</h1>
+  </article>
+
+  <article data-block="bronze">
+    <h1>Bronze Sponsors</h1>
+  </article>
+</html>
