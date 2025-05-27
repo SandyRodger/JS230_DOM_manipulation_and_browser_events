@@ -932,12 +932,19 @@ LS solution:
 
 ### [2	HTML Data Attributes](https://launchschool.com/lessons/6169e7e7/assignments/4d45d956)
 
+- the point is JS needs to be able to find them even if they get moved around. So, not -> 'find me the first child', but 'find me the contents button, wherever it is'
 
 ##### Data Attributes in HTML
 
 - sometimes ID attributes are used to achieve this, but that's not really their job.
+  - instead you should create your own attributes on the tabs and set their values to match the custom attributes on the contents blocks.
+    - that's what Launchschool says. I have questions:
+      - What is the content's block?
+      - SHow me an attribute? To remind me what that looks like and how it differs from other parts of the tag?
 - With the introduction of HTML5 came the ability to create custom data attributes.
+  - These are just for storing data for you, they don't do anything else. Which means their like little post it notes for you that the engine also knows where they are. Like air-tags for finding your keys i guess.
 - They must have 'data-' followed by at least 1 character.
+- The problem with using ID attributes to do this job is that it might be confusing the css, which is also relying on that tag to know what to style. So with data attributes you can change them willy-nilly and it won't confuse the css.
 - There is no limit to the number of data attributes you can add to an element.
 
 ##### Reading and Writing Data Attributes in JavaScript
@@ -958,10 +965,8 @@ console.log(goldTab.dataset.block); // "gold"
 - finally you can remove a data attribute using the `delete` operator;
   - `delete goldTab.dataset.block;`
 
-
 ##### Naming Conventions for Data Attributes
 
-- (this is tedious)
 - when using `dataset` attribute names with hyphens are converted to camelCase, like below:
 
 `<div data-date-of-birth="1999-09-09"></div>`
@@ -972,9 +977,22 @@ is accessed thusly:
 
 
 ### [3	Assignment: Arithmetic Calculator](https://launchschool.com/lessons/6169e7e7/assignments/37105b2e)
+
+
+- I peeked fairly early.
+- Interesting things I learnt:
+  - coercing a string result into a number by just prepending +
+  - the dispatch table (neat)
+  - Earlier the course implied tha referencing tags by their id was not as good as referencing them by data-attributes, but here that's what we do...
+
 ### [4	Assignment: Grocery List](https://launchschool.com/lessons/6169e7e7/assignments/9b6bffb7)
 
+- 
+
 ### [5	Project: Guess a Word, Part 1: Game Logic](https://launchschool.com/lessons/6169e7e7/assignments/28a0459e)
+
 ### [6	Project: Guess a Word, Part 2: User Interface](https://launchschool.com/lessons/6169e7e7/assignments/15e6c115)
+
 ### 7	More Exercises
+
 ### [8	JS230 Course Feedback](https://launchschool.com/lessons/6169e7e7/assignments/8df635c3)
