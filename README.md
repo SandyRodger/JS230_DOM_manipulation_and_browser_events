@@ -24,7 +24,19 @@
 - Browsers insert missing elements because a fundamental tenet of the web is permisiveness, ie the browser will do its best to display what you provide even if it means adding bits.
 - and in fact the DOM includes more nodes than the html tags. like for #text inside the tags and tags containing only white-space AKA empty nodes.
 - Devs often forget about these empty nodes, like those between lines, and it can cause bugs.
-- Jut remember they aren't visible in the web-browser, but they are there.
+- Just remember they aren't visible in the web-browser, but they are there.
+- Empty nodes are technically just text noes, but devs like to make a distinction.
+- In the following example there is a new line empty node between `</h1>` and `<p>` adn then after the closing `</p>` tag:
+
+```
+<html>
+  <h1>Hello, world!</h1>
+  <p>This is a small <em>web page</em>.</p>
+</html>
+```
+
+<img width="370" alt="Screenshot 2025-06-01 at 15 45 34" src="https://github.com/user-attachments/assets/92337ced-f501-45d5-acd8-13a3a029bf41" />
+
 ##### DOM levels
 
 - referes to which features are available where. You don't need to know this.
@@ -32,10 +44,63 @@
 ### Problems:
 
 - fine (I didn't do the drawing, but I think I would have gotten the same answer)
+- 2nd pass (1.6.25):
+  - 1. false (correct)
+    2. true (correct)
+    3. basically every new line is an empty text node:
+```html
+<html>
+  <head>
+    #T1
+    <title>Newsletter Signup</title>
+    #T2
+  </head>
+  #T3
+  <body>
+    #T5
+    <!-- A short comment -->
+    #T6
+    <h1>Newsletter Signup</h1>
+    #T6
+    <p class="intro" id="simple">
+      To receive our weekly emails, enter your email address below.
+      <a href="info.html">Get more info</a>
+      #T (for some reason it's orange with a \n, isn't this an empty node?)
+    </p>
+    #T7
+    <div class="form">
+      #T8
+      <form>
+        #T16
+        <label>
+          Enter your email:
+          <input name="email" placeholder="user.name@domain.test"/>
+          #T18
+        </label>
+        #T11
+        <p class="controls">
+          #T13
+          <button id="cancelButton">Cancel</button>
+          #T14
+          <button type="submit" id="submitButton">Subscribe</button>
+          #T15
+        </p>
+        #T12
+      </form>
+      #T10
+    </div>
+    #T9
+  </body>
+  #T17
+</html>
+```
+
+4. Yah i KNow
 
 ### [4	Node Properties](https://launchschool.com/lessons/f0659709/assignments/b40afb49)
 
-`let p = document.querySelector("p");`
+- document.toString() => '[object HTMLDocument]'
+- `let p = document.querySelector("p");`
 
 #### Node properties
 ##### Node Name
@@ -117,7 +182,14 @@ Why do I need to give a shit about Node type?
       - and on and on.
 
 - Almost all HTML tags have their own Element subtype.
+
 #### Determining the Node Type
+
+-   THIS COULD BE A TRICK QUESTION ON THE ASSESSMENT:
+  -   How do you determine the node type in interactive console sessions?
+    -   `p.toString();
+  - ... and on Chrome?
+  - `document.querySelector('a').constructor;`
 
 - `Object.getPrototypeOf()` is the easiest.
   - `Object.getPrototypeOf(p)`
@@ -145,6 +217,16 @@ a.toString() // "http://domain.com/page"
 ##### ... from code
 
 - `instanceof` or `tagName` property.
+
+- so there's 6 different ways FFS:
+  1. `Object.getPrototypeOf(p);` -> easiest
+  2. 'p.toString();' -> best on the console, but sometimes returns something else like for <a> tags
+  3. `document.querySelector('a').constructor;` for Chrome, edge and Safari (although the output is different)
+  4. `document.querySelector('a').constructor.name;` for firefox
+  5. `> document.querySelector('a').constructor;` if your writing a program
+= function HTMLAnchorElement() { [native code] }` for Edge
+6. `p instanceof HTMLParagraphElement;` -> if you already have an idea what it probably is.
+7. `p.tagName` -> if you don't need to know the type-name
 
 ### [6	Inheritance and Finding Documentation](https://launchschool.com/lessons/f0659709/assignments/ddf624ee)
 
@@ -326,13 +408,57 @@ YOUTUBE VIDEO: https://www.youtube.com/watch?v=VYyQv0CSZOE
 - another breakpoint is to just click a line of code and then the code pauses there. Others are DOM mutation break-point and Event listener breakpoints
 
 _ this video would be more helpful if I was familiar with dev tools. If I used it a lot and had a bunch of preferred practices
+- maybe I will come back to it further into the course. 3rd pass maybe (this is written on 2nd pass)
 
-
-### [10Practice Problems: Traversing and Accessing Attributes](https://launchschool.com/lessons/f0659709/assignments/d01702c5)
+### [10 Practice Problems: Traversing and Accessing Attributes](https://launchschool.com/lessons/f0659709/assignments/d01702c5)
 
 _ I am not able to solve these problems. Where was the information that I missed which would enable me to solve these? (was it LS2020...)
 
 - 2nd go, I can solve them now.
+1. 2nd pass, I didn't quite solve.
+- for some reason, `childNodes[0]` returns `/n` and `firstChild` returns `<head>` interesting.
+- The thing that is throwing me off is that there is an empty node between the closing `<body>   tag and the opening `<h1>` tag on the following line.
+- then no space between 48 and px, its '48px'
+
+2.  got it
+
+```javascript
+function newWalk(node, callback) {
+    callback(node);
+    for (let i = 0; i < node.childNodes.length; i++) {
+        newWalk(node.childNodes[i], callback)
+    }
+}
+undefined
+let c = 0;
+undefined
+newWalk(document, n => {
+    if (n.nodeName === 'P') {
+        c++;
+    }
+})
+undefined
+c
+5
+```
+
+3. 
+```javascript
+let first = true;
+newWalk(document, n => {
+  if (n.nodeName === 'P') {
+    if (first) {
+      first = false;
+    } else {
+      n.setAttribute('class', 'stanza');
+    }
+  }
+});
+```
+
+4. My mistake was asking for nodeType rather than nodeName. nodeName => IMG.
+- also bearing in mind the 2nd part of the question, I should have found all the images and then filtered for PNGs.
+
 
 5. my solution is different:
 
@@ -364,6 +490,8 @@ walk(document, node => {
 #### Finding An Element By Id
 
 - We often need to do this. We use `getElementByID` on `document` 
+
+##### Finding More Than One Element
 
 #### problems group 1
 
@@ -488,10 +616,16 @@ for (let index = 0; index < paragraphs.length; index += 1) {
 }
 ```
 
-
+- OK so the take away is if you want all the h2s use query selector all and then convert it into an awway with Array.prototype.slice.call(h2s)
 2.
 
-I'm a little too tired for this and should return to it tomorrow.
+- `document.getElementsByClassName('toctitle');`
+  -LS solution: `document.getElementById('toc');`
+- `document.getElementsByTagName('h2')[0]`
+  - LS solution: `document.querySelector('#toc');`
+- `document.querySelector('.toctitle')`
+  - LS solution: `document.querySelectorAll('.toc')[0];`
+
 1
 ```javascript
 let paragraphs = document.getElementsByTagName("p");
