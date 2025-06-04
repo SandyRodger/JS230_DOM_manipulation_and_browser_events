@@ -915,8 +915,30 @@ function colorGeneration(target) {
 9. A, B, C, D - Tick
 10. D, but just because I ran the code. -> actually B. BEcause when we clone the `.intro` it makes an element with the same `id` tag, which is not allowed.
 
-## [2	Event-Driven Programming](https://launchschool.com/lessons/0e674886/assignments)
+- 3rd: 4.6.25: 7/10 (70%) -> getting better, still too unsure.
+1. C -> tick
+2. D (very uncertain) -> tick
+3. D (very uncertain) -> no, A -> ELEMENT NODES DON'T HAVE VALUES, THEY ARE NULL
 
+Given the following HTML, what is the nodeValue of the p element?
+
+```html
+<body>
+  <h1>Greetings!!</h1>
+  <p><span>Hello</span>, world</p>
+</body>
+```
+
+4. B (very uncertain) -> tick
+5. B -> tick
+6. A -> tick
+7. B, C, D -> tick
+8. I counter 13, I was waaaaaay off. 38(A)? I really have no idea. -> no, D. THe answer uses the `walk` method to count the children, it doesn't do it by eye as you tried.
+9. A, C, D, no, and B (You can traverse the DOM in any direction)
+10. I really have no idea, B? -> tick
+
+## [2	Event-Driven Programming](https://launchschool.com/lessons/0e674886/assignments)
+- 2nd pass (4.6.25)
 ### [1	Introduction](https://launchschool.com/lessons/0e674886/assignments/f9875c44)
 
 - Instead of controlling the flow of the program, we set up **event listeners** that respond to actions or system events.
@@ -924,10 +946,13 @@ function colorGeneration(target) {
 ### [2	User Interfaces and Events](https://launchschool.com/lessons/0e674886/assignments/bc1afaa4)
 
 - An event is an object that represents some occurence. It contains information about what happened and where.
+- web apps can be broken down into 2 jobs:
+  - set up the interface and display it
+  - handle events from user/ browser actions.
 
 ##### User Interfaces Do a Lot of Waiting
 
--example with an inpur field that takes a number and returns the nth number in a fibonacci sequence.
+-example with an input field that takes a number and returns the nth number in a fibonacci sequence.
 
 ### [3	A Simple Example](https://launchschool.com/lessons/0e674886/assignments/cee99839)
 
@@ -1111,6 +1136,11 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCounter();
 });
 ```
+
+- 2nd attempt 4.6.25
+
+1. Didn't get it
+2. I didn't get it (also some dumb typos)
 
 ### [8	Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/4b0e007c)
 
