@@ -692,19 +692,212 @@ document.querySelector('.time').textContent = '9:16 am';
 ```
 
 ### [13Practice Problems: Finding Nodes and Traversing Elements](https://launchschool.com/lessons/f0659709/assignments/982b7c72)
+
+- 2nd pass
+1. solved:
+
+```
+let h2s = document.querySelectorAll('h2');
+let h2sArray = Array.prototype.slice.call(h2s);
+h2sArray.map(h => {
+    let text = h.textContent.trim();
+    return text.split(' ').length;
+})
+```
+
+2. 
+```
+document.getElementById('toc');
+document.getElementsByClassName('toc');
+document.querySelectorAll('.toc')[0]
+document.querySelector('.toc')
+document.querySelector('#toc')
+```
+3. I'm not sure why my solutions seem to be referencing the wrong thing. Here is the LS solution:
+
+```javascript
+for (let i = 0; i < links.length; i ++) {
+    if (i % 2 === 1) {
+        links[i].style.color = 'green';
+    }
+}
+```
+
+4. I think I got the wrong thing. Perhaps I misunderstood what a thumbnail caption is...
+
+my solution:
+
+```javascript
+let imgs = document.querySelectorAll('img');
+let imgsArr = Array.prototype.slice.call(imgs);
+imgsArr.map(e => e.alt);
+```
+
+LS solution:
+```
+let nodes = document.querySelectorAll('.thumbcaption');
+let captions = [];
+
+for (let index = 0; index < nodes.length; index += 1) {
+  captions.push(nodes[index].textContent.trim());
+}
+
+console.log(captions);
+```
+
+combination of the two:
+
+```javascript
+let nodes = document.querySelectorAll(`.thumbcaption`);
+let nodesArr = Array.prototype.slice.call(nodes);
+nodesArr.map(e => e.textContent.trim())
+```
+
+4. Where the fuck was 'infobox' meant to come from?! I can see it, but it's such a large portion of the page, why not just use document?
+- this line is particularly opaque to me: `link = cell.nextElementSibling.firstElementChild;`
+
+
 ### [14Creating and Moving DOM Nodes](https://launchschool.com/lessons/f0659709/assignments/05416748)
+
+- example adding a paragraph to a DOM:
+
+```javascript
+let paragraph = document.createElement('p');
+paragraph.textContent = 'This is a test.';
+document.body.appendChild(paragraph);
+```
+
+or
+
+```javascript
+let text = document.createTextNode('This is a test.');
+let paragraph = document.createElement('p');
+paragraph.appendChild(text);
+document.body.appendChild(paragraph);
+```
+
 #### Creating New Nodes
-Node Creation Method	Returns
-document.createElement(tagName)	A new Element node
-document.createTextNode(text)	A new Text node
-node.cloneNode(deepClone)
+- One can either:
+  -  create a new empty node with `document.create` methods:
+    - `document.createElement(tagName)`	 => A new Element node
+    - `document.createTextNode(text)`	=> A new Text node
+  -  or clone an existing node hierarchy like this:
+    - `node.cloneNode(deepClone)` => copy of a node
+ 
+  - The argument to `.cloneNode` is a boolean. `true` means deep copy, so all the children as well, `false` os a shallow copy, so just that node:
+
+```javascript
+let paragraph2 = paragraph.cloneNode(true);
+document.body.appendChild(paragraph2);
+```
+
 #### Adding Nodes to the DOM
+
+- one can append/ insert or replace them:
+  - NB: append child should use .body, as in `document.body.appendChild`
+  - P(b)AC your PIB to the PRC
+- No node may appear twice in the DOM. If you attempt to add a node that already exists it gets deleted from its original location, making the operation one of transfer rather than copying.
+- Here are the Epstein's Island methods which insert nodes before/after/within an element. Note that the text one creates a new node with that text. The argument `position` can only be one of the following:
+  - `beforebegin`
+  - `afterbegin`
+  - `beforeend`
+  - `afterend`
+ 
 #### Removing Nodes
 
+- When you remove a node from the DOM it becomes eligible for garbage collection unless you keep a reference to the node in a variable.
+- `node.remove()`
+- `parent.removeChild(node)`
+
 ### [15The Browser Object Model (BOM)](https://launchschool.com/lessons/f0659709/assignments/629ea0ff)
+
+- In this lesson we're looking mainly at the DOM, but you can access other things like the windows used to display the web-pages, like the browser's history, like sensors and that stuff is the BOM, but we don't go into that here.
+
 ### [16Practice Problems: the DOM](https://launchschool.com/lessons/f0659709/assignments/3ef4cf4e)
+
+- 3/6/25
+1.
+```javascript
+let h = document.querySelector('h1');
+h.setAttribute('class','heading');
+```
+
+2.
+```javascript
+let u = document.querySelector('ul');
+u.className = 'bulleted';
+```
+
+3. Does anyone get this first time?!
+```javascript
+document.getElementById('toggle').onclick = e => {
+  e.preventDefault();
+  let notice = document.getElementById('notice');
+  if (notice.getAttribute('class') === 'hidden') {
+    notice.setAttribute('class', 'visible');
+  } else {
+    notice.setAttribute('class', 'hidden');
+  }
+}
+```
+
+4. got it
+```javascript
+document.getElementById('notice').onclick = e => {
+  document.getElementById('notice').setAttribute('class', 'hidden');
+};
+```
+
+or
+
+```javascript
+document.getElementById('notice').onclick = e => {
+  e.currentTarget.setAttribute('class', 'hidden');
+};
+```
+
+5. nailed it
+```javascript
+document.getElementById('multiplication').textContent = (13 * 9).toString();
+```
+
+6. Somehow this worked:
+`$0.id = 'styled';` -> because there was a note on the browser saying to refer to the body as `$0`. What to make of that?
+LS solution: `document.body.setAttribute('id', 'styled');`
+
 ### [17Assignment: DOM Shuffling](https://launchschool.com/lessons/f0659709/assignments/2c9d1e4f)
+
+- well, i certainly moved stuff around, and superficially it looked like it was in the right place, but the red colours showed I was not there.
+- Solution has some good points:
+  - uses P(b)IB, where i was using Epstein's island
+  - `let h1 = document.querySelector("main > h1");`
+
 ### [18Summary](https://launchschool.com/lessons/f0659709/assignments/d863bc06)
+
+- great
+
+### [exercises](https://launchschool.com/exercises/02085795)
+
+5. coloring. I'm a little stuck here. My bfs isn't working. I'll come back to it:
+
+```javascript
+function colorGeneration(target) {
+  let level = 0;
+  let queue = [document.body];
+
+  while (queue.length && level < target) {
+    console.log(`at level ${level}, queue is ${queue}`);
+    let curr = queue.shift();
+    for (let i = curr.children.length; i > 0; i--) {  
+      queue.push(curr.children[i-1]);
+    }
+    level ++;
+  }
+
+  queue.map(e => e.setAttribute('class', 'generation-color'))
+}
+```
+
 ### [19 Quiz](https://launchschool.com/quizzes/50a33f83)
 
 - 1st go (super rushed -> 50%)
