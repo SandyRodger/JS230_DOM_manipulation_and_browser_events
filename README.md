@@ -1196,8 +1196,6 @@ elem1.addEventListener('click', callbackFunction, true);
 - Each variable is visited twice, once going down (capturing) and once coming up (bubbling)
 - To set the handler to listen on the capturing phase, (rather than the bubbling phase), you provide a 3rd argument:
 
-
-
 #### Problems
 
 1. add `true` as the third argument to the first event capture.
@@ -1256,6 +1254,7 @@ elem1.addEventListener('click', callbackFunction, true);
 
 - 2nd pass 4.6.25
 1. nailed it.
+2. I just used toggle, is that bad? Seems to work!
 3. My convoluted solution:
 
 ```javascript
@@ -1293,6 +1292,17 @@ LS solution:
 6. A, C, D -> not D. ALmsot, but ew should be checking `event.target` not `event.currentTarget`.
 7. B Tick
 8. B Tick
+
+3rd go: 4.6.25 (6/8)
+
+1. A - tick
+2. C - tick
+3. B - tick
+4. a, b, c - tick
+5. D -> noope, C
+6. a -> nope, and C
+7. b -> tick
+8. b -> tick
 
 ## [3	Creating Responsive Webpages](https://launchschool.com/lessons/6169e7e7/assignments)
 ### [1	Introduction](https://launchschool.com/lessons/6169e7e7/assignments/7bd7d615)
@@ -1346,7 +1356,7 @@ is accessed thusly:
 - (because hyphens are not allowed in Javascript property names)
 
 
-### [3	Assignment: Arithmetic Calculator](https://launchschool.com/lessons/6169e7e7/assignments/37105b2e)
+### [3 Assignment: Arithmetic Calculator](https://launchschool.com/lessons/6169e7e7/assignments/37105b2e)
 
 
 - I peeked fairly early.
