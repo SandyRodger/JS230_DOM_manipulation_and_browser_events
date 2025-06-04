@@ -1140,7 +1140,11 @@ document.addEventListener('DOMContentLoaded', () => {
 - 2nd attempt 4.6.25
 
 1. Didn't get it
-2. I didn't get it (also some dumb typos)
+2. I didn't get it (also some dumb typos
+3. Key aspects of soluton:
+  - start by identifying all the objects we need to work with. These are composer, textarea, counter and button. 2 of these we get by class, two we get with their tag-name.
+  - `let invalid = remaining < 0;` this line is deceptively simple, but useful.
+  - `textarea.classList.toggle('invalid', invalid);` this line adds or removes the class depending on whether the 2nd argument resolves to true or not.
 
 ### [8	Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/4b0e007c)
 
@@ -1197,8 +1201,13 @@ elem1.addEventListener('click', callbackFunction, true);
 #### Problems
 
 1. add `true` as the third argument to the first event capture.
+- 2nd pass also correct
 2. OK I get this.
-3. Seemed straightforward, but they tricked you, because elem 0 was not part of the nest, it was closed, therefore not part of the bubble.
+- 2nd pass as well
+3. Seemed straightforward, but they tricked you, because elem 0 was not part of the nest, it was closed, therefore not part of the bubble
+
+- ok this I get 100%
+
 ### [9	Practice Problems: Capturing and Bubbling](https://launchschool.com/lessons/0e674886/assignments/110f9c82)
 
 1. 4, 1 - because we are following normal bubbling capturing and the 2 events are defined on elem1, the difference being that one fires on `target` (elem4`) and the other on `currentTarget` (elem1, where the even listener is defined). So we capture down to the inner-most nested element: 4, then bubble back up and trigger on the bubbling phase, therefore 4, 1
@@ -1232,7 +1241,8 @@ elem1.addEventListener('click', callbackFunction, true);
 
 - **event delegation**: defining your event listener on an ancestor object so that, so it doesn't have to be defined on a million buttons.
 
-- It doesn't have to be the defined on teh `document`, although often that's useful.
+- It doesn't have to be the defined on the `document`, although often that's useful.
+
 ##### When To Use Event Delegation
 
 - At the beginning of a project bind the event handlers directly to elements. Then as the code grows in size/complexity reduce the number of event handlers required.
@@ -1240,9 +1250,12 @@ elem1.addEventListener('click', callbackFunction, true);
 ### [12	Assignment: Guessing Game](https://launchschool.com/lessons/0e674886/assignments/55b5d527)
 
 - pretty straight-forward (once i'd had a night of rest)
+- 2nd pass (4.6.25)
 
 ### [13	Assignment: Build an Input Box](https://launchschool.com/lessons/0e674886/assignments/033bf169)
 
+- 2nd pass 4.6.25
+1. nailed it.
 3. My convoluted solution:
 
 ```javascript
