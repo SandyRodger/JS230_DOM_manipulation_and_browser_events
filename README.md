@@ -1329,7 +1329,10 @@ LS solution:
 
 ##### Reading and Writing Data Attributes in JavaScript
 
+- I need to internalise this: `const goldTab = document.querySelector('a[data-block="gold"]');`
+
 - You can access data attributes using the `dataset` property on an element.
+  - dataset is a key-value store!!!!!
 - The following retrieves the `data-block` value from the selected `<a>` element
 
 ```javascript
@@ -1365,9 +1368,20 @@ is accessed thusly:
   - the dispatch table (neat)
   - Earlier the course implied tha referencing tags by their id was not as good as referencing them by data-attributes, but here that's what we do...
 
+- 2nd try ( 5.6.25)
+- Interesting things I learnt:
+  - why is the 2nd argument to the DOMContentLoaded event listener a regular function, rather than an arrow function as it usually is.
+  - there is much to grok here.
+
 ### [4	Assignment: Grocery List](https://launchschool.com/lessons/6169e7e7/assignments/9b6bffb7)
 
-- 
+- 2nd pass: fuck this really combines lots of different things:
+  - classes
+    - constructors
+  - IIFEs
+  - event listeners
+
+- I need to be more creative with my solutions - also to pre-PEDAC
 
 ### [5	Project: Guess a Word, Part 1: Game Logic](https://launchschool.com/lessons/6169e7e7/assignments/28a0459e)
 
