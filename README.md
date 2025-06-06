@@ -1382,6 +1382,8 @@ is accessed thusly:
   - event listeners
 
 - I need to be more creative with my solutions - also to pre-PEDAC
+- `form.reset` ?
+- `list.append(listItem)` ?
 
 ### [5	Project: Guess a Word, Part 1: Game Logic](https://launchschool.com/lessons/6169e7e7/assignments/28a0459e)
 
