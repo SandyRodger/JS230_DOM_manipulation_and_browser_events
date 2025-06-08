@@ -1389,6 +1389,12 @@ is accessed thusly:
 
 ### [6	Project: Guess a Word, Part 2: User Interface](https://launchschool.com/lessons/6169e7e7/assignments/15e6c115)
 
+- lessons to be learnt from the LS implementation:
+  - you have to plan out your nounds & verbs, don't just go in coding the requirements list like a shopping list, you dickhead.
+
 ### 7	More Exercises
+
+- client side form-validation:
+  - https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation
 
 ### [8	JS230 Course Feedback](https://launchschool.com/lessons/6169e7e7/assignments/8df635c3)
