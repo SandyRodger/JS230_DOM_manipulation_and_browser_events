@@ -943,6 +943,15 @@ Given the following HTML, what is the nodeValue of the p element?
 
 - Instead of controlling the flow of the program, we set up **event listeners** that respond to actions or system events.
 
+#### What is an event Listener (LSbot refined)
+
+- Event listeners are a key part of **event-driven programming**.
+- They are **javascript callback functions** defined with `node.addEventListener()` that wait for events such as user-input or browser-events.
+-  They receive an **Event object** as a parameter which contains details about the event and then perform an operation with this information.
+-  Event listeners can be triggered by **events like** mouse-clicks, sensory input or location updates.
+- These event listeners are often nested inside a main event listener that waits for the **DOMContentLoaded** event after which it defines the other event listeners.
+- Event listeners enable **interactive web applications** by connecting user/browser actions to code execution.
+
 ### [2	User Interfaces and Events](https://launchschool.com/lessons/0e674886/assignments/bc1afaa4)
 
 - An event is an object that represents some occurence. It contains information about what happened and where.
@@ -1051,6 +1060,10 @@ document.addEventListener("DOMContentLoaded", () => {
 - the terms _event listener_ and _event handler_ are treated interchangeably even though there's a difference:
   - the `addEventListener` method sets up an event listener for a specific type on an element. This is the overall system that listens for events.
   - The 2nd argument to the method above is the event handler.
+
+##### What is the purpose of the addEventListener method? How many arguments does it take? What is each argument for? (LSBot refined)
+
+`addEventListener()` is a method one calls on a DOM node to register an event handler to respond to an event. The event could be a user input such as a `keyUp` event or a browser event such as `DOMContentLoaded`. It takes 2 arguments with a third optional argument. The method is invoked on the node that will listen for the event. The first argument is the type of event to respond to (string). The second argument is a callback containing the code that will be triggered by the event. The third optional argument is a Boolean that defaults to false which, when set to true means that the callback is invoked during the capturing phase (defaulting to the bubbling phase).
 
 ### [7	The Event Object](https://launchschool.com/lessons/0e674886/assignments/ecdb4ea9)
 
@@ -1216,6 +1229,20 @@ elem1.addEventListener('click', callbackFunction, true);
 
 3. "Elem1 Listener triggered!" will print, the other will not, regardlesss of whether `on capture` is set to true or not.
   - correct.
+
+#### Describe the three phases of the propagation of a DOM event (LSbot refined)
+
+- After an event fires it goes through 3 phases:
+
+Phase 1: Capturing
+- The event gets dispatched to the global `window` object.
+- then to the `document` object
+- then to the target element (ie the element on which the event has fired) via all nodes on on the inheritance chain between `document` and itself.
+- If a third argument of `true` has been added to the `.addEventListener()` function then it is during this part of propagation that the event handler is invoked, otherwise the third optional argument defaults to `false` and the event handler is called during the bubbling phase
+
+Phase 2: Target -> this is when the event lands on the node that triggered the event.
+
+Phase 3: Bubbling -> The event then traverses the route established in phase one, but in reverse. 
 
 ### [10	Preventing Propagation and Default Behaviors](https://launchschool.com/lessons/0e674886/assignments/b22cabb4)
 
